@@ -1,0 +1,49 @@
+{% extends 'base.twig' %}
+
+{% block body %}
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <form action="/public/list.php" method="GET">
+                    <label>Employee Name<input type="text" name="ename" value="{{ ename }}"></label>
+                    <label>Event Name<input type="text" name="evname" value="{{ evname }}"></label>
+                    <label>Event Date<input type="date" name="evdate" value="{{ evdate }}"></label>
+                    <button class="btn-danger btn" type="submit">Filter</button>
+                    <br><br>
+                </form>
+                <div class="table100 ver1 m-b-110">
+                    <table data-vertable="ver1">
+                        {% set total = 0 %}
+                        {% if data is not null %}
+                            <thead>
+                            <tr class="row100 head">
+                                <th class="column100 column3" data-column="column3">Employee Name</th>
+                                <th class="column100 column4" data-column="column4">Event Name</th>
+                                <th class="column100 column5" data-column="column5">Participation Fee</th>
+                                <th class="column100 column6" data-column="column6">Event Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in data %}
+                                {% set total = total + row.fee %}
+                                <tr class="row100">
+                                    <td class="column100 column3" data-column="column3">{{ row.name }}</td>
+                                    <td class="column100 column4" data-column="column4">{{ row.evname }}</td>
+                                    <td class="column100 column5" data-column="column5">{{ row.fee }}</td>
+                                    <td class="column100 column6" data-column="column6">{{ row.event_date }}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td/>
+                                <td class="column100 column4" data-column="column4"><b>TOTAL</b></td>
+                                <td class="column100 column5" data-column="column5"><b>{{ total }}</b></td>
+                                <td/>
+                            </tr>
+                            </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
